@@ -9,15 +9,28 @@ public class Wallet {
     private String owner;
     private int money;
 
+
     public Wallet(String owner, int money) {
-        setOwner(owner);
-        setMoney(money);
+        checkOwner(owner);
+        this.owner = owner;
+        checkMoney(money);
+        this.money = money;
     }
 
-    public void setOwner(String owner) {
+    private void checkOwner(String owner) {
         if (owner.trim().equals("")) {
             throw new IllegalArgumentException("Владелец кошелька должен быть указан");
         }
+    }
+
+    private void checkMoney(int money) {
+        if (money < 0) {
+            throw new IllegalArgumentException("Средства в кошельке не могут быть меньше нуля");
+        }
+    }
+
+    public void setOwner(String owner) {
+        checkOwner(owner);
         this.owner = owner;
     }
 
@@ -26,9 +39,7 @@ public class Wallet {
     }
 
     public void setMoney(int money) {
-        if (money < 0) {
-            throw new IllegalArgumentException("Средства в кошельке не могут быть меньше нуля");
-        }
+        checkMoney(money);
         this.money = money;
     }
 

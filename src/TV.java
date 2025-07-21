@@ -15,8 +15,22 @@ public class TV {
     private static final int MAX_VOLUME = 100;
 
     public TV(int currentChannel, int volume) {
-        setCurrentChannel(currentChannel);
-        setVolume(volume);
+        checkCurrentChannel(currentChannel);
+        this.currentChannel = currentChannel;
+        checkVolume(volume);
+        this.volume = volume;
+    }
+
+    private void checkCurrentChannel(int currentChannel) {
+        if (currentChannel < MIN_CHANNEL || currentChannel > MAX_CHANNEL) {
+            throw new IllegalArgumentException("Неверный номер канала " + currentChannel);
+        }
+    }
+
+    private void checkVolume(int volume) {
+        if (volume < MIN_VOLUME || volume > MAX_VOLUME) {
+            throw new IllegalArgumentException("Некорректное значение громкости " + volume);
+        }
     }
 
     public int getCurrentChannel() {
@@ -28,16 +42,12 @@ public class TV {
     }
 
     public void setCurrentChannel(int currentChannel) {
-        if (currentChannel < MIN_CHANNEL || currentChannel > MAX_CHANNEL) {
-            throw new IllegalArgumentException("Неверный номер канала " + currentChannel);
-        }
+        checkCurrentChannel(currentChannel);
         this.currentChannel = currentChannel;
     }
 
     public void setVolume(int volume) {
-        if (volume < MIN_VOLUME || volume > MAX_VOLUME) {
-            throw new IllegalArgumentException("Некорректное значение громкости " + volume);
-        }
+        checkVolume(volume);
         this.volume = volume;
     }
 
